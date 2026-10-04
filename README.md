@@ -12,4 +12,4 @@ Le formulaire ouvre un e-mail prérempli par défaut. Pour activer Web3Forms, cr
 
 ## Contenu
 
-Les coordonnées, prestations, le logo, la galerie de réalisations et les logos partenaires viennent du site public valbtherm.ch. Les images sont référencées par leurs URL d’origine ; conserver ces fichiers disponibles sur l’ancien site ou les héberger dans ce dépôt avant de retirer WordPress. Vérifier que l’entreprise dispose des droits sur ces photos et logos. Le texte de protection des données est un point de départ à revoir selon la configuration réelle.
+Les coordonnées, prestations, le logo, la galerie de réalisations et les logos partenaires viennent du site public valbtherm.ch. Une copie des images est incluse dans `assets/` pour que ce site reste autonome après un retrait de WordPress. Vérifier que l’entreprise dispose des droits sur ces photos et logos. Le texte de protection des données est un point de départ à revoir selon la configuration réelle.

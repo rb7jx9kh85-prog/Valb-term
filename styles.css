@@ -19,7 +19,7 @@ nav a:hover,.text-link:hover{color:var(--accent)}
 .header-cta,.btn-dark{background:#0a3a62}
 .header-cta:hover,.btn-dark:hover{background:#0f82bd}
 .hero{background:#061e34}
-.hero-photo{background-image:url('https://valbtherm.ch/wp-content/uploads/2025/11/vv4.jpeg');background-position:76% 49%;opacity:1;filter:none;left:43%}
+.hero-photo{background-image:url('assets/project-4.jpg');background-position:76% 49%;opacity:1;filter:none;left:43%}
 .hero:before{background:linear-gradient(90deg,#061e34 0%,#092b49 37%,#092b49e8 48%,#092b4990 61%,#082c4440 100%)}
 .hero-grid{background:linear-gradient(90deg,transparent 49.94%,rgba(255,255,255,.09) 50%,transparent 50.06%)}
 .hero-brandline{position:absolute;z-index:2;top:0;bottom:0;right:8%;width:6px;display:flex;gap:4px;opacity:.8;transform:skewX(-18deg)}
@@ -54,7 +54,7 @@ nav a:hover,.text-link:hover{color:var(--accent)}
 .partner-grid img{display:block;max-width:100%;max-height:59px;width:auto;height:auto;object-fit:contain}
 .partner-grid>div:last-child img{max-height:72px}
 .statement{background:#092a47}
-.statement-photo{background-image:url('https://valbtherm.ch/wp-content/uploads/2025/11/vv11.jpeg');background-position:75% 46%;opacity:.9}
+.statement-photo{background-image:url('assets/project-11.jpg');background-position:75% 46%;opacity:.9}
 .statement-shade{background:linear-gradient(90deg,#061e34f7 0%,#092b49e8 50%,#092b4966 100%)}
 .section-index.white{color:#7ad0f1}
 .work{padding:125px 0;background:#f5f8f9}

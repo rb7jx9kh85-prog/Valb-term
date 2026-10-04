@@ -10,7 +10,7 @@ h1,h2,h3{font-family:'Noto Serif',Georgia,serif;letter-spacing:-.035em}
 .topline{background:#061c31;color:#d8e9f0}
 .topline a span,.brand-dot{color:var(--red)}
 header{background:#f7fafb;border-bottom:1px solid #d8e4e8}
-.logo-crop{display:block;position:relative;width:54px;height:57px;overflow:hidden;flex:none}
+.logo-crop{display:block;position:relative;width:54px;height:43px;overflow:hidden;flex:none}
 .logo-crop img{display:block;position:absolute;top:0;left:0;width:54px;height:auto}
 .brandword{color:#092b49;font-size:20px;letter-spacing:-.045em}
 .brandword>span{color:#0f82bd}
@@ -72,9 +72,9 @@ nav a:hover,.text-link:hover{color:var(--accent)}
 .work-card small{grid-column:1/-1;font-size:10px;font-weight:800;letter-spacing:.17em;color:#9cdaef}
 .work-card b{font:700 20px 'Noto Serif',Georgia,serif;margin-top:5px}
 .work-card i{font-style:normal;font-size:24px;align-self:end}
-.gallery-dialog{border:0;padding:0;background:#071b2b;color:white;max-width:min(92vw,1100px);max-height:94vh;box-shadow:0 30px 90px #0009}
+.gallery-dialog{border:0;padding:0;background:#071b2b;color:white;width:min(92vw,1100px);max-width:1100px;max-height:94vh;box-shadow:0 30px 90px #0009}
 .gallery-dialog::backdrop{background:#031320ed}
-.gallery-dialog img{display:block;max-width:100%;max-height:85vh;object-fit:contain}
+.gallery-dialog img{display:block;width:100%;height:min(82vh,760px);object-fit:contain}
 .gallery-dialog button{position:absolute;z-index:2;border:0;background:#092b49dd;color:white;font-size:25px;width:45px;height:45px}
 .gallery-close{right:12px;top:12px}.gallery-prev{left:12px;top:50%}.gallery-next{right:12px;top:50%}
 .gallery-count{position:absolute;bottom:10px;right:17px;background:#071b2bcc;padding:5px 10px;font-size:12px}
@@ -89,4 +89,4 @@ nav a:hover,.text-link:hover{color:var(--accent)}
 .status-nouveau{background:#e0f0fa;color:#096a9a}
 .demo-badge{border-color:#0f82bd88;background:#0f82bd1a;color:#8cd8f7}
 @media(max-width:950px){.partner-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.work-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.work-card:first-child,.work-card:nth-child(2){height:350px}}
-@media(max-width:700px){.logo-crop{width:43px;height:46px}.logo-crop img{width:43px}.brandword{font-size:16px}.hero-photo{left:0;background-position:53% 55%;opacity:.62}.hero:before{background:linear-gradient(90deg,#061e34ed,#092b49ba)}.hero-brandline{right:5%}.hero h1{font-size:clamp(51px,12.7vw,72px)}.about-visual{margin-top:48px;height:auto;grid-template-columns:1fr}.about-visual img{height:230px}.about-caption{min-height:125px;padding:22px}.partners{padding:65px 0}.partner-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.partner-grid>div{height:72px;padding:10px}.partner-grid img{max-height:48px}.work{padding:75px 0}.work-heading{display:block}.work-heading p{margin-top:24px}.work-grid{gap:8px}.work-card,.work-card:first-child,.work-card:nth-child(2){height:250px;grid-column:auto}.work-card:first-child{grid-column:span 2;height:300px}.work-card b{font-size:15px}.work-card>span{left:12px;right:12px;bottom:12px}.work-card small{font-size:9px}.gallery-dialog button{width:38px;height:38px}}
+@media(max-width:700px){.logo-crop{width:43px;height:35px}.logo-crop img{width:43px}.brandword{font-size:16px}.hero-photo{left:0;background-position:53% 55%;opacity:.62}.hero:before{background:linear-gradient(90deg,#061e34ed,#092b49ba)}.hero-brandline{right:5%}.hero h1{font-size:clamp(51px,12.7vw,72px)}.about-visual{margin-top:48px;height:auto;grid-template-columns:1fr}.about-visual img{height:230px}.about-caption{min-height:125px;padding:22px}.partners{padding:65px 0}.partner-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.partner-grid>div{height:72px;padding:10px}.partner-grid img{max-height:48px}.work{padding:75px 0}.work-heading{display:block}.work-heading p{margin-top:24px}.work-grid{gap:8px}.work-card,.work-card:first-child,.work-card:nth-child(2){height:250px;grid-column:auto}.work-card:first-child{grid-column:span 2;height:300px}.work-card b{font-size:15px}.work-card>span{left:12px;right:12px;bottom:12px}.work-card small{font-size:9px}.gallery-dialog button{width:38px;height:38px}.gallery-dialog img{height:min(78vh,680px)}}

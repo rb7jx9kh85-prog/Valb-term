@@ -2,3 +2,91 @@
 @media(max-width:950px){.wrap{width:min(100% - 48px,1320px)}header{padding:0 24px}nav{gap:16px}.header-cta{margin-left:0}.hero-content{width:calc(100% - 48px)}.hero-bottom{left:24px;right:24px}.intro-main{gap:40px}.service-card{padding:22px}.contact-grid{gap:6%}.location-details{gap:28px}.admin-sidebar{width:210px}.admin-main{padding:0 24px 60px}}
 @media(max-width:700px){.topline{padding:0 18px;font-size:9px}.topline span:first-child{display:none}header{height:74px;padding:0 18px}header .brandmark{font-size:36px}.brandword{font-size:17px}.brandword small{font-size:6px}#menu{display:block;margin-left:auto}.header-cta{display:none}nav{display:none;position:absolute;top:74px;left:0;right:0;background:#fff;flex-direction:column;padding:22px;box-shadow:0 18px 25px #14232c20}nav.open{display:flex}.wrap{width:calc(100% - 36px)}.hero{height:690px;min-height:0}.hero-photo{background-position:62% center}.hero:before{background:linear-gradient(90deg,#0a2531e8,#0a2531a3)}.hero-content{width:calc(100% - 36px);padding-top:115px}.hero h1{font-size:clamp(55px,13vw,82px)}.hero-content>p{font-size:16px}.hero-actions{align-items:flex-start;flex-direction:column;gap:24px}.hero-bottom{left:18px;right:18px;bottom:22px}.hero-bottom span:last-child,.hero-side{display:none}.intro,.services,.approach,.contact-section{padding:75px 0}.intro-main,.approach-layout,.contact-grid{grid-template-columns:1fr;gap:32px}.intro h2,.section-heading h2,.approach h2,.location h2{font-size:43px}.credential{margin-top:55px;align-items:flex-start;flex-wrap:wrap;gap:10px}.credential>span:last-child{width:100%;padding-left:55px}.section-heading{display:block;margin-bottom:35px}.section-heading p{margin-top:24px}.service-list{grid-template-columns:1fr}.service-card{min-height:350px}.service-icon{margin:25px 0}.statement{height:500px}.statement-inner{padding-top:65px}.statement blockquote{font-size:39px}.contact-direct{margin-top:35px}.quote-form{padding:25px 20px}.form-row{grid-template-columns:1fr}.location{flex-direction:column;padding:75px 0;gap:30px}.location-details{flex-direction:column}.footer-main{grid-template-columns:1fr 1fr;padding:55px 0;gap:45px}.footer-brand{grid-column:1/-1}.footer-bottom{flex-wrap:wrap;gap:12px}.admin-body{display:block}.admin-sidebar{width:100%;min-height:auto;padding:17px;display:block}.admin-sidebar .brand{margin-bottom:10px}.admin-nav{margin:15px 0;display:flex;flex-direction:row;overflow:auto}.admin-nav>span,.demo-badge,.back-site{display:none}.admin-nav a{white-space:nowrap}.admin-main{padding:0 17px 50px}.admin-welcome{align-items:start;flex-direction:column;margin:35px 0 22px}.admin-welcome h1{font-size:32px}.stats{grid-template-columns:1fr 1fr}.stats>div{padding:18px}.admin-panel{padding:17px}.meeting-list>div{grid-template-columns:1fr;gap:4px}.settings-grid{grid-template-columns:1fr}.legal h1{font-size:42px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}
+
+/* VALB-THERM identity: blue technical clarity, red flame, genuine project photography. */
+:root{--ink:#102c46;--deep:#092b49;--accent:#0f82bd;--cream:#f3f7f8;--muted:#5e7280;--red:#cb1830}
+body{color:var(--ink);background:#fff}
+h1,h2,h3{font-family:'Noto Serif',Georgia,serif;letter-spacing:-.035em}
+.topline{background:#061c31;color:#d8e9f0}
+.topline a span,.brand-dot{color:var(--red)}
+header{background:#f7fafb;border-bottom:1px solid #d8e4e8}
+.logo-crop{display:block;position:relative;width:54px;height:57px;overflow:hidden;flex:none}
+.logo-crop img{display:block;position:absolute;top:0;left:0;width:54px;height:auto}
+.brandword{color:#092b49;font-size:20px;letter-spacing:-.045em}
+.brandword>span{color:#0f82bd}
+.brandword small{color:#51748b}
+nav a:hover,.text-link:hover{color:var(--accent)}
+.header-cta,.btn-dark{background:#0a3a62}
+.header-cta:hover,.btn-dark:hover{background:#0f82bd}
+.hero{background:#061e34}
+.hero-photo{background-image:url('https://valbtherm.ch/wp-content/uploads/2025/11/vv4.jpeg');background-position:76% 49%;opacity:1;filter:none;left:43%}
+.hero:before{background:linear-gradient(90deg,#061e34 0%,#092b49 37%,#092b49e8 48%,#092b4990 61%,#082c4440 100%)}
+.hero-grid{background:linear-gradient(90deg,transparent 49.94%,rgba(255,255,255,.09) 50%,transparent 50.06%)}
+.hero-brandline{position:absolute;z-index:2;top:0;bottom:0;right:8%;width:6px;display:flex;gap:4px;opacity:.8;transform:skewX(-18deg)}
+.hero-brandline span:first-child{background:#cf1d31;width:3px}.hero-brandline span:last-child{background:#0e95c7;width:3px}
+.hero h1{font-size:clamp(59px,7.8vw,112px);letter-spacing:-.055em;max-width:770px}
+.hero h1 em,.contact-intro h2 em,.statement em{color:#70caed}
+.pulse{background:var(--red)}
+.btn-accent{background:#0f82bd;color:#fff}
+.btn-accent:hover{background:#096c9f}
+.section-index,.service-no,.location-details small{color:#0f82bd}
+.section-index span{border-color:#0f82bd}
+.intro{padding-bottom:110px}
+.intro h2 span,.section-heading h2 span,.approach h2 span,.location h2 span{color:#6d9eb9}
+.about-visual{margin-top:70px;display:grid;grid-template-columns:minmax(0,2fr) minmax(240px,.8fr);height:300px;background:#e7edf0;overflow:hidden}
+.about-visual img{width:100%;height:100%;object-fit:cover;object-position:center 51%;filter:grayscale(.12)}
+.about-caption{background:#0b3b62;color:#fff;display:flex;flex-direction:column;justify-content:end;padding:32px}
+.about-caption span{font-size:11px;letter-spacing:.16em;color:#86cceb;font-weight:800}
+.about-caption strong{font:700 25px/1.3 'Noto Serif',Georgia,serif;max-width:230px;margin-top:18px}
+.credential{margin-top:0;border-top:0;border-bottom:1px solid #dce7eb;padding:25px 0}
+.credential-icon{background:#e9f4fa;color:#0f82bd}
+.services{background:#f2f7f9}
+.service-card{border-top:4px solid #0f82bd}
+.service-card:nth-child(2){border-top-color:#cb1830}
+.service-card:nth-child(2) .service-icon{color:#cb1830}
+.service-icon{color:#0f82bd}
+.service-card>a{border-color:#b5d5e4;color:#0f82bd}
+.partners{padding:95px 0 105px;text-align:center}
+.partners .section-index{justify-content:center}
+.partners h2{font-size:clamp(36px,4vw,55px);margin:24px 0 48px}
+.partner-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
+.partner-grid>div{height:98px;border:1px solid #e3ebee;background:#fff;display:flex;align-items:center;justify-content:center;padding:20px}
+.partner-grid img{display:block;max-width:100%;max-height:59px;width:auto;height:auto;object-fit:contain}
+.partner-grid>div:last-child img{max-height:72px}
+.statement{background:#092a47}
+.statement-photo{background-image:url('https://valbtherm.ch/wp-content/uploads/2025/11/vv11.jpeg');background-position:75% 46%;opacity:.9}
+.statement-shade{background:linear-gradient(90deg,#061e34f7 0%,#092b49e8 50%,#092b4966 100%)}
+.section-index.white{color:#7ad0f1}
+.work{padding:125px 0;background:#f5f8f9}
+.work-heading{display:flex;justify-content:space-between;align-items:end;gap:60px;margin:35px 0 48px}
+.work h2{font-size:clamp(46px,5.4vw,76px);margin:0}
+.work h2 em{font-style:normal;color:#1686bd}
+.work-heading p{max-width:350px;color:#60717a;margin:0}
+.work-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.work-card{border:0;padding:0;background:#dbe6ea;text-align:left;position:relative;height:300px;overflow:hidden;color:#fff}
+.work-card:first-child,.work-card:nth-child(2){grid-column:span 2;height:410px}
+.work-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
+.work-card:hover img{transform:scale(1.06)}
+.work-card:after{content:'';position:absolute;inset:45% 0 0;background:linear-gradient(transparent,#031c31bc);pointer-events:none}
+.work-card>span{position:absolute;bottom:18px;left:20px;right:20px;z-index:2;display:grid;grid-template-columns:1fr auto}
+.work-card small{grid-column:1/-1;font-size:10px;font-weight:800;letter-spacing:.17em;color:#9cdaef}
+.work-card b{font:700 20px 'Noto Serif',Georgia,serif;margin-top:5px}
+.work-card i{font-style:normal;font-size:24px;align-self:end}
+.gallery-dialog{border:0;padding:0;background:#071b2b;color:white;max-width:min(92vw,1100px);max-height:94vh;box-shadow:0 30px 90px #0009}
+.gallery-dialog::backdrop{background:#031320ed}
+.gallery-dialog img{display:block;max-width:100%;max-height:85vh;object-fit:contain}
+.gallery-dialog button{position:absolute;z-index:2;border:0;background:#092b49dd;color:white;font-size:25px;width:45px;height:45px}
+.gallery-close{right:12px;top:12px}.gallery-prev{left:12px;top:50%}.gallery-next{right:12px;top:50%}
+.gallery-count{position:absolute;bottom:10px;right:17px;background:#071b2bcc;padding:5px 10px;font-size:12px}
+.contact-section,footer,.admin-sidebar{background:#092b49}
+.contact-direct>span{color:#80cce9}
+.form-head span:last-child,.meeting-date,.admin-top span:last-child{color:#0f82bd}
+.quote-form input:focus,.quote-form select:focus,.quote-form textarea:focus{border-color:#0f82bd}
+.footer-brand{background:#f7fafb;padding:12px 18px;justify-self:start}
+.footer-brand .brandword{color:#092b49}
+.admin-sidebar .brand{background:#f7fafb;padding:10px 8px}
+.admin-sidebar .brandword{color:#092b49}
+.status-nouveau{background:#e0f0fa;color:#096a9a}
+.demo-badge{border-color:#0f82bd88;background:#0f82bd1a;color:#8cd8f7}
+@media(max-width:950px){.partner-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.work-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.work-card:first-child,.work-card:nth-child(2){height:350px}}
+@media(max-width:700px){.logo-crop{width:43px;height:46px}.logo-crop img{width:43px}.brandword{font-size:16px}.hero-photo{left:0;background-position:53% 55%;opacity:.62}.hero:before{background:linear-gradient(90deg,#061e34ed,#092b49ba)}.hero-brandline{right:5%}.hero h1{font-size:clamp(51px,12.7vw,72px)}.about-visual{margin-top:48px;height:auto;grid-template-columns:1fr}.about-visual img{height:230px}.about-caption{min-height:125px;padding:22px}.partners{padding:65px 0}.partner-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.partner-grid>div{height:72px;padding:10px}.partner-grid img{max-height:48px}.work{padding:75px 0}.work-heading{display:block}.work-heading p{margin-top:24px}.work-grid{gap:8px}.work-card,.work-card:first-child,.work-card:nth-child(2){height:250px;grid-column:auto}.work-card:first-child{grid-column:span 2;height:300px}.work-card b{font-size:15px}.work-card>span{left:12px;right:12px;bottom:12px}.work-card small{font-size:9px}.gallery-dialog button{width:38px;height:38px}}

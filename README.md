@@ -1,6 +1,6 @@
 # VALB-THERM — refonte
 
-Site statique responsive pour VALB-THERM Sàrl, avec espace admin **de démonstration**. Ouvrir `index.html` pour la vitrine et `admin.html` pour la démo. Déploiement possible sur Vercel avec le preset **Other** (répertoire racine, aucune commande de build).
+Site statique responsive pour VALB-THERM Sàrl, avec une identité rouge chauffage / bleu climatisation, le slogan « L’art de chauffer », une page `projets.html` et un espace admin **de démonstration**. Ouvrir `index.html` pour la vitrine et `admin.html` pour la démo. Déploiement possible sur Vercel avec le preset **Other** (répertoire racine, aucune commande de build).
 
 ## Formulaire
 
@@ -13,3 +13,7 @@ Le formulaire ouvre un e-mail prérempli par défaut. Pour activer Web3Forms, cr
 ## Contenu
 
 Les coordonnées, prestations, le logo, la galerie de réalisations et les logos partenaires viennent du site public valbtherm.ch. Une copie des images est incluse dans `assets/` pour que ce site reste autonome après un retrait de WordPress. Vérifier que l’entreprise dispose des droits sur ces photos et logos. Le texte de protection des données est un point de départ à revoir selon la configuration réelle.
+
+## Présentation et mouvement
+
+Les photos existantes sont conservées. Les étapes chauffage sont une présentation générale du déroulement d’une installation, pas un récit attribué à un chantier précis. Les animations (entrée du titre, lumières, parallaxe et apparition au défilement) respectent `prefers-reduced-motion`. Aucun montant, calendrier de négociation ou note privée n’est intégré à la vitrine.

@@ -17,3 +17,7 @@ Les coordonnées, prestations, le logo, la galerie de réalisations et les logos
 ## Présentation et mouvement
 
 Les photos existantes sont conservées. Les étapes chauffage sont une présentation générale du déroulement d’une installation, pas un récit attribué à un chantier précis. Les animations (entrée du titre, lumières, parallaxe et apparition au défilement) respectent `prefers-reduced-motion`. Aucun montant, calendrier de négociation ou note privée n’est intégré à la vitrine.
+
+## Icônes et surfaces
+
+`assets/icons.svg` contient les pictogrammes vectoriels personnalisés, sans emoji. `assets/favicon.svg` reprend la flamme rouge et la goutte bleue. `glass.css` harmonise les rayons et les surfaces translucides, avec une alternative opaque si le flou n’est pas pris en charge ou si la réduction de transparence est demandée.

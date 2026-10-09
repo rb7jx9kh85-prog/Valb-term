@@ -21,3 +21,7 @@ Les photos existantes sont conservées. Les étapes chauffage sont une présenta
 ## Icônes et surfaces
 
 `assets/icons.svg` contient les pictogrammes vectoriels personnalisés, sans emoji. `assets/favicon.svg` reprend la flamme rouge et la goutte bleue. `glass.css` harmonise les rayons et les surfaces translucides, avec une alternative opaque si le flou n’est pas pris en charge ou si la réduction de transparence est demandée.
+
+## Animations
+
+Apparitions en cascade au défilement, reflets et légère inclinaison des cartes à la souris, onde au clic, transitions du menu et de la galerie. Les effets de souris sont désactivés sur les écrans tactiles ; les animations respectent la réduction de mouvement, y compris si le réglage change pendant la visite. Aucun outil supplémentaire n’est requis.

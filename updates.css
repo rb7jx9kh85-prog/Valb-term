@@ -7,6 +7,7 @@ h1,h2,h3{letter-spacing:-.045em}
 .footer-brand .brand-logo{width:260px}
 .hero-photo{inset:0 0 0 29%;background-position:center 53%}
 .hero:before{background:linear-gradient(90deg,#081523 0%,#081523ef 30%,#08152366 61%,#08152310 100%)}
+.hero h1 em{color:#dc4350}
 .intro,.approach,.partners{position:relative}
 .service-list{grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
 .service-card{min-height:465px;padding:34px 30px 82px}

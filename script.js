@@ -11,7 +11,8 @@ const year=document.querySelector('#year');if(year)year.textContent=new Date().g
 document.querySelector('#quote-form')?.addEventListener('submit',async e=>{e.preventDefault();const form=e.currentTarget,status=document.querySelector('#form-status');const data=Object.fromEntries(new FormData(form));const key=window.VALB_WEB3FORMS_KEY||'';if(key){status.textContent='Envoi en cours…';try{const r=await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...data,access_key:key,subject:'Nouvelle demande de devis — VALB-THERM',from_name:'Site VALB-THERM'})});const result=await r.json();if(!result.success)throw new Error('Échec de l’envoi');status.textContent='Votre demande a bien été envoyée. Merci !';form.reset()}catch{status.textContent='Envoi impossible. Appelez-nous au +41 79 697 49 66 ou écrivez à info@valb-therm.ch.'}}else{const subject=encodeURIComponent('Demande de devis VALB-THERM — '+data.service);const body=encodeURIComponent(`Nom : ${data.name}\nTéléphone : ${data.phone}\nE-mail : ${data.email}\nDomaine : ${data.service}\nProjet : ${data.project}\n\n${data.message}`);window.location.href=`mailto:info@valb-therm.ch?subject=${subject}&body=${body}`;status.textContent='Votre application e-mail va s’ouvrir avec votre demande préremplie. Vérifiez et envoyez le message.'}});
 const gallery = document.querySelector('#gallery-dialog');
 if (gallery) {
-  const cards = [...document.querySelectorAll('.work-card')];
+  const allCards = [...document.querySelectorAll('.work-card')];
+  let cards = allCards;
   const photo = gallery.querySelector('img'), counter = gallery.querySelector('.gallery-count');
   let current = 0, photoAnimation;
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -29,7 +30,14 @@ if (gallery) {
       ], {duration: 380, easing: 'cubic-bezier(.2,.65,.3,1)'});
     }
   };
-  cards.forEach((card, i) => card.addEventListener('click', () => {show(i);gallery.showModal();}));
+  allCards.forEach(card => card.addEventListener('click', () => {
+    const category = card.closest('.project-gallery');
+    cards = category ? [...category.querySelectorAll('.work-card')] : allCards;
+    gallery.setAttribute('aria-label', category?.querySelector('h2')?.textContent.trim() || 'Photo de réalisation');
+    show(cards.indexOf(card));
+    gallery.showModal();
+    document.body.classList.add('gallery-open');
+  }));
   gallery.querySelector('.gallery-close').addEventListener('click', () => gallery.close());
   gallery.querySelector('.gallery-prev').addEventListener('click', () => show(current - 1));
   gallery.querySelector('.gallery-next').addEventListener('click', () => show(current + 1));
@@ -38,13 +46,13 @@ if (gallery) {
     if (e.key === 'ArrowRight') {e.preventDefault();show(current + 1);}
     if (e.key === 'ArrowLeft') {e.preventDefault();show(current - 1);}
   });
-  gallery.addEventListener('close', () => photoAnimation?.cancel());
+  gallery.addEventListener('close', () => {photoAnimation?.cancel();document.body.classList.remove('gallery-open');});
   reduced.addEventListener('change', () => {if (reduced.matches) photoAnimation?.cancel();});
 }
 
 // Progressive enhancement: content remains available without animation support.
 const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
-const targets = [...document.querySelectorAll('.intro-main,.about-visual,.section-heading,.service-card,.partners h2,.statement blockquote,.work-heading,.work-card,.approach-layout,.contact-intro,.quote-form,.story-heading,.story-layout,.project-end,.principles>div,.project-steps li')];
+const targets = [...document.querySelectorAll('.intro-main,.about-visual,.section-heading,.service-card,.partners h2,.statement blockquote,.work-heading,.work-card,.approach-layout,.contact-intro,.quote-form,.story-heading,.story-layout,.project-end,.principles>div,.project-steps li,.expertise-row,.renewable-photo,.renewable-copy,.review-card')];
 if ('IntersectionObserver' in window && !motion.matches) {
   const observer = new IntersectionObserver(entries => entries.forEach(entry => {
     if (entry.isIntersecting) {entry.target.classList.add('is-visible');observer.unobserve(entry.target);}

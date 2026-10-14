@@ -1,6 +1,6 @@
 # VALB-THERM — refonte
 
-Site statique responsive pour VALB-THERM Sàrl, avec une identité rouge chauffage / bleu climatisation, le slogan « L’art de chauffer », une page `projets.html` et un espace admin **de démonstration**. Ouvrir `index.html` pour la vitrine et `admin.html` pour la démo. Déploiement possible sur Vercel avec le preset **Other** (répertoire racine, aucune commande de build).
+Site statique responsive pour VALB-THERM Sàrl, avec une identité rouge chauffage / bleu sanitaire, le slogan « L’art de chauffer », une page `projets.html` et un espace admin **de démonstration**. Ouvrir `index.html` pour la vitrine et `admin.html` pour la démo. Déploiement possible sur Vercel avec le preset **Other** (répertoire racine, aucune commande de build).
 
 ## Formulaire
 
@@ -25,3 +25,13 @@ Les photos existantes sont conservées. Les étapes chauffage sont une présenta
 ## Animations
 
 Apparitions en cascade au défilement, reflets et légère inclinaison des cartes à la souris, onde au clic, transitions du menu et de la galerie. Les effets de souris sont désactivés sur les écrans tactiles ; les animations respectent la réduction de mouvement, y compris si le réglage change pendant la visite. Aucun outil supplémentaire n’est requis.
+
+## Mise à jour du 14 octobre 2026
+
+Logo horizontal officiel dans la navigation, symbole en traits en arrière-plan, police Google Open Sans (SemiBold pour les titres de cartes). Climatisation retirée ; ventilation conservée avec des cartes plus grandes. Section pompes à chaleur / énergies renouvelables, avec la photo fournie en illustration.
+
+La page `projets.html` organise les onze photos existantes en trois galeries : sanitaire, chauffage et lavabos / salles de bains. Les liens de la page d’accueil pointent directement vers chaque domaine et la visionneuse reste dans le domaine choisi.
+
+Les quatre témoignages fournis sont affichés comme extraits statiques, sans note globale ni date relative inventée. Ils sont présents sur l’accueil et sur `avis.html`, avec liens vers les profils Google et la fiche de l’entreprise. Ils ne sont pas synchronisés automatiquement avec Google. Google Maps est intégré à l’adresse de l’entreprise sur ces deux pages.
+
+La mention entreprise formatrice est séparée des partenaires et placée en bas de page. Les cinq images reçues sont incluses dans `assets/`. `updates.css` porte les ajustements de cette mise à jour.

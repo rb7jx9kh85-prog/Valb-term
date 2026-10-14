@@ -16,4 +16,5 @@
   <symbol id="settings" viewBox="0 0 24 24"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3"/><circle cx="15" cy="17" r="3"/></symbol>
   <symbol id="add" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
   <symbol id="demo" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M10 8h1v8h-1M14 8h1v8h-1"/></symbol>
+  <symbol id="arrow-external" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6h12v12"/></symbol>
 </svg>

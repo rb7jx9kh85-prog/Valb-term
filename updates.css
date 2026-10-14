@@ -1,7 +1,7 @@
 /* Content refresh: original company logos, larger services and craft galleries. */
 body{font-family:'Open Sans',Arial,sans-serif;isolation:isolate}
 h1,h2,h3{letter-spacing:-.045em}
-.brand-watermark{position:fixed;inset:10vh 0 0 auto;width:min(65vw,850px);height:85vh;background:url('assets/logo-outline.jpg') center/contain no-repeat;opacity:.13;mix-blend-mode:multiply;pointer-events:none;z-index:-1}
+.brand-watermark{position:fixed;top:50%;left:50%;width:min(65vw,850px);height:85vh;transform:translate(-50%,-50%);background:url('assets/logo-outline.jpg') center/contain no-repeat;opacity:.13;mix-blend-mode:multiply;pointer-events:none;z-index:-1}
 .brand-logo{display:block;width:280px;height:auto;max-height:68px;object-fit:contain}
 .site-header{gap:24px}.site-header nav{gap:22px}.site-header .brand{min-width:0}
 .footer-brand .brand-logo{width:260px}

@@ -35,3 +35,7 @@ La page `projets.html` organise les onze photos existantes en trois galeries : s
 Les quatre témoignages fournis sont affichés comme extraits statiques, sans note globale ni date relative inventée. Ils sont présents sur l’accueil et sur `avis.html`, avec liens vers les profils Google et la fiche de l’entreprise. Ils ne sont pas synchronisés automatiquement avec Google. Google Maps est intégré à l’adresse de l’entreprise sur ces deux pages.
 
 La mention entreprise formatrice est séparée des partenaires et placée en bas de page. Les cinq images reçues sont incluses dans `assets/`. `updates.css` porte les ajustements de cette mise à jour.
+
+## Avis animés
+
+La section des avis sur l’accueil et `avis.html` utilise un carrousel natif scroll-snap, avec défilement toutes les sept secondes, choix direct par auteur, commandes précédent / suivant, pause et navigation au clavier. La lecture automatique s’arrête hors écran, en arrière-plan, au survol et lors de l’interaction. Le réglage de réduction de mouvement désactive le défilement automatique et les animations décoratives ; sans JavaScript, les quatre avis restent lisibles en grille.

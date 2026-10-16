@@ -9,6 +9,7 @@
   <link href="styles.css" rel="stylesheet">
   <link href="assets/favicon.svg" rel="icon" type="image/svg+xml">
   <link href="glass.css" rel="stylesheet">
+  <link href="admin-operations.css" rel="stylesheet">
 </head>
 <body class="admin-body">
   <main class="admin-login" id="auth-gate">
@@ -66,6 +67,11 @@
 
       <section class="admin-panel content-manager" id="content">
         <div class="panel-title"><div><div class="section-index">CONTENU DU SITE</div><h2>Photos & petites cartes</h2><p>Ajoutez une réalisation avec sa photo. Elle apparaît automatiquement sur la page d’accueil.</p></div></div>
+        <section class="operation-journal" aria-label="Journal des opérations photos">
+          <div class="operation-journal-head"><strong>Suivi des opérations</strong><span id="operation-state">Prêt</span></div>
+          <p>Les étapes correspondent aux réponses réelles du navigateur, du serveur et de Firebase.</p>
+          <ol id="operation-log" aria-live="polite" aria-relevant="additions"></ol>
+        </section>
         <form class="card-create-form" id="card-form">
           <label>Titre<input maxlength="80" name="title" placeholder="Ex. Rénovation complète" required></label>
           <label>Catégorie<select name="category"><option>Sanitaire</option><option>Chauffage</option><option>Lavabos & salles de bains</option><option>Pompe à chaleur</option><option>Ventilation</option></select></label>

@@ -65,6 +65,44 @@ function inputDate(value) {
   return new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
 }
 function setSync(message) { syncStatus.textContent = message; }
+const operationLog = document.querySelector('#operation-log');
+const operationState = document.querySelector('#operation-state');
+let operationTimer = null;
+let operationStarted = 0;
+function logOperation(message, level = 'info') {
+  const item = document.createElement('li');
+  item.dataset.level = level;
+  const time = document.createElement('time');
+  time.textContent = new Date().toLocaleTimeString('fr-CH');
+  const text = document.createElement('span');
+  text.textContent = message;
+  item.append(time, text);
+  operationLog.append(item);
+  while (operationLog.children.length > 120) operationLog.firstElementChild.remove();
+  operationLog.scrollTop = operationLog.scrollHeight;
+}
+function beginOperation(message) {
+  if (operationTimer) throw new Error('Une opération photo est déjà en cours.');
+  operationStarted = Date.now();
+  operationState.closest('section').dataset.busy = 'true';
+  const updateClock = function () {
+    const seconds = Math.floor((Date.now() - operationStarted) / 1000);
+    operationState.textContent = 'En cours · ' + seconds + ' s' + (navigator.onLine ? '' : ' · connexion Internet interrompue');
+  };
+  updateClock();
+  operationTimer = setInterval(updateClock, 1000);
+  logOperation(message);
+}
+function finishOperation(message, level = 'success') {
+  clearInterval(operationTimer);
+  operationTimer = null;
+  operationState.closest('section').dataset.busy = 'false';
+  operationState.textContent = (level === 'error' ? 'Échec' : level === 'warning' ? 'À vérifier' : 'Terminé') + ' · ' + Math.round((Date.now() - operationStarted) / 1000) + ' s';
+  logOperation(message, level);
+}
+function operationError(error) {
+  return (error.code ? '[' + error.code + '] ' : '') + (error.message || 'Erreur inconnue.');
+}
 function validateImage(file) {
   if (!file) throw new Error("Choisissez une image.");
   if (!["image/jpeg","image/png","image/webp"].includes(file.type)) throw new Error("Utilisez une image JPG, PNG ou WebP.");
@@ -72,14 +110,49 @@ function validateImage(file) {
 }
 async function imageRequest(method, body) {
   if (!auth.currentUser) throw new Error("Reconnectez-vous à l’administration.");
+  logOperation('Récupération du jeton de connexion Firebase…');
   const token = await auth.currentUser.getIdToken();
-  const response = await fetch("/api/images", {
-    method:method, headers:{"Content-Type":"application/json",Authorization:"Bearer " + token},
-    body:JSON.stringify(body)
-  });
-  const result = await response.json().catch(function () { return {}; });
-  if (!response.ok) throw new Error(result.error || "Opération photo impossible. Réessayez.");
-  return result;
+  logOperation(method === 'POST' ? 'Transfert de la photo vers le serveur Vercel…' : 'Envoi de la demande de suppression au serveur…');
+  const controller = new AbortController();
+  const timeout = setTimeout(function () { controller.abort(); }, 70000);
+  try {
+    const response = await fetch('/api/images', {
+      method:method, headers:{'Content-Type':'application/json',Accept:'application/x-ndjson',Authorization:'Bearer ' + token},
+      body:JSON.stringify(body), signal:controller.signal
+    });
+    if (!response.headers.get('Content-Type')?.includes('application/x-ndjson')) {
+      const result = await response.json().catch(function () { return {}; });
+      if (!response.ok) throw new Error(result.error || 'Le serveur a répondu HTTP ' + response.status + '.');
+      return result;
+    }
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let pending = '', result = null;
+    function consume(line) {
+      if (!line.trim()) return;
+      const event = JSON.parse(line);
+      if (event.type === 'step') logOperation(event.message);
+      if (event.type === 'error') throw new Error(event.error + ' [étape : ' + event.stage + ' ; référence : ' + event.operationId + ']');
+      if (event.type === 'result') result = event;
+    }
+    try {
+      while (true) {
+        const chunk = await reader.read();
+        if (chunk.done) break;
+        pending += decoder.decode(chunk.value, {stream:true});
+        const lines = pending.split('\n');
+        pending = lines.pop();
+        lines.forEach(consume);
+      }
+      pending += decoder.decode();
+      consume(pending);
+    } finally { reader.releaseLock(); }
+    if (!result) throw new Error('Le serveur a interrompu sa réponse sans confirmer le résultat.');
+    return result;
+  } catch (error) {
+    if (error.name === 'AbortError') throw new Error('Aucune confirmation après 70 secondes. Vérifiez Cloudinary et la liste des cartes avant de réessayer.');
+    throw error;
+  } finally { clearTimeout(timeout); }
 }
 async function prepareImage(file) {
   if (file.size <= 3 * 1024 * 1024) return file;
@@ -99,22 +172,29 @@ async function prepareImage(file) {
   } finally { URL.revokeObjectURL(url); }
 }
 async function uploadImage(file) {
+  logOperation('Vérification de la photo sélectionnée…');
   validateImage(file);
+  logOperation('Photo acceptée : ' + file.name + ' · ' + Math.round(file.size / 1024) + ' Ko.');
+  logOperation(file.size > 3 * 1024 * 1024 ? 'Réduction de la photo dans le navigateur…' : 'Taille compatible : aucune réduction nécessaire.');
   const prepared = await prepareImage(file);
+  logOperation('Préparation terminée : ' + Math.round(prepared.size / 1024) + ' Ko. Lecture du fichier…');
   const base64 = await new Promise(function (resolve, reject) {
     const reader = new FileReader();
     reader.onload = function () { resolve(String(reader.result).split(",")[1]); };
     reader.onerror = function () { reject(new Error("Lecture de la photo impossible.")); };
     reader.readAsDataURL(prepared);
   });
+  logOperation('Lecture du fichier terminée.');
   return imageRequest("POST", {image:base64});
 }
 async function removeStoredImage(path) {
-  if (!path) return;
-  try { await imageRequest("DELETE", {storagePath:path}); }
+  if (!path) return true;
+  try { await imageRequest("DELETE", {storagePath:path}); return true; }
   catch (error) {
     console.warn("Nettoyage de la photo impossible", error.message);
     setSync("Carte enregistrée, mais l’ancienne photo doit être supprimée dans Cloudinary.");
+    logOperation('Nettoyage de la photo non confirmé : ' + operationError(error), 'warning');
+    return false;
   }
 }
 
@@ -156,6 +236,7 @@ function startListeners() {
   stopCards = onSnapshot(query(collection(db, "projectCards"), orderBy("order", "asc")), function (snapshot) {
     cards = snapshot.docs.map(function (item) { return Object.assign({id:item.id}, item.data()); });
     renderCards();
+    if (operationTimer) logOperation(snapshot.metadata.hasPendingWrites ? 'Firestore a reçu la modification localement ; confirmation du serveur en attente…' : 'Liste des cartes synchronisée avec Firestore.');
   }, function (error) { console.error(error); setSync("Cartes non synchronisées"); });
 }
 
@@ -243,6 +324,8 @@ newForm.addEventListener("submit", async function (event) {
 cardForm.addEventListener("submit", async function (event) {
   event.preventDefault();
   if (!cardForm.reportValidity()) return;
+  if (operationTimer) return;
+  beginOperation('Création d’une nouvelle carte.');
   const submit = cardForm.querySelector('button[type="submit"]');
   const data = new FormData(cardForm);
   submit.disabled = true;
@@ -250,16 +333,20 @@ cardForm.addEventListener("submit", async function (event) {
   let uploaded = null;
   try {
     uploaded = await uploadImage(data.get("image"));
+    cardFormStatus.textContent = 'Photo stockée. Enregistrement de la carte dans Firestore…';
+    logOperation('Enregistrement du titre, de la photo et de la visibilité dans Firestore…');
     await addDoc(collection(db, "projectCards"), {
       title:String(data.get("title")).trim(),category:String(data.get("category")),description:String(data.get("description")).trim(),order:Number(data.get("order") || 0),visible:data.get("visible") === "on",imageUrl:uploaded.imageUrl,storagePath:uploaded.storagePath,createdAt:serverTimestamp(),updatedAt:serverTimestamp()
     });
     cardForm.reset();
     cardForm.querySelector('[name="visible"]').checked = true;
-    cardFormStatus.textContent = "La carte est publiée.";
+    cardFormStatus.textContent = data.get('visible') === 'on' ? 'Carte enregistrée et visible sur le site.' : 'Carte enregistrée, masquée sur le site.';
+    finishOperation(cardFormStatus.textContent + ' Confirmation du serveur Firestore reçue.');
   } catch (error) {
     console.error(error);
     if (uploaded) await removeStoredImage(uploaded.storagePath);
-    cardFormStatus.textContent = error.message || "Importation impossible.";
+    cardFormStatus.textContent = operationError(error);
+    finishOperation(cardFormStatus.textContent, 'error');
   } finally { submit.disabled = false; }
 });
 
@@ -269,24 +356,31 @@ cardList.addEventListener("click", async function (event) {
   const id = article.dataset.cardId;
   const card = cards.find(function (item) { return item.id === id; });
   if (!card) return;
+  if (!event.target.closest('button') || operationTimer) return;
+  if (event.target.hasAttribute('data-delete-card') && !window.confirm('Supprimer cette carte et sa photo ?')) return;
+  beginOperation('Modification de la carte « ' + card.title + ' ».');
   try {
     if (event.target.dataset.move) {
       const direction = Number(event.target.dataset.move);
       const ordered = cards.slice().sort(function (a, b) { return Number(a.order || 0) - Number(b.order || 0); });
       const currentIndex = ordered.findIndex(function (item) { return item.id === id; });
       const targetIndex = currentIndex + direction;
-      if (targetIndex < 0 || targetIndex >= ordered.length) return;
+      if (targetIndex < 0 || targetIndex >= ordered.length) { finishOperation('La carte est déjà à cette extrémité de la liste.'); return; }
       const other = ordered[targetIndex];
       const batch = writeBatch(db);
       batch.update(doc(db, "projectCards", id), {order:Number(other.order || targetIndex),updatedAt:serverTimestamp()});
       batch.update(doc(db, "projectCards", other.id), {order:Number(card.order || currentIndex),updatedAt:serverTimestamp()});
+      logOperation('Enregistrement du nouvel ordre des cartes dans Firestore…');
       await batch.commit();
+      finishOperation('Nouvel ordre confirmé par Firestore.');
       return;
     }
     if (event.target.hasAttribute("data-delete-card")) {
-      if (!window.confirm("Supprimer cette carte et sa photo ?")) return;
+      logOperation('Suppression de la carte dans Firestore…');
       await deleteDoc(doc(db, "projectCards", id));
-      await removeStoredImage(card.storagePath);
+      logOperation('Suppression de la carte confirmée par Firestore.');
+      const cleaned = await removeStoredImage(card.storagePath);
+      finishOperation(cleaned ? 'Carte et photo supprimées.' : 'Carte supprimée ; nettoyage de la photo à vérifier dans Cloudinary.', cleaned ? 'success' : 'warning');
       return;
     }
     if (event.target.hasAttribute("data-save-card")) {
@@ -303,18 +397,22 @@ cardList.addEventListener("click", async function (event) {
         update.storagePath = uploaded.storagePath;
       }
       try {
+        logOperation('Enregistrement des modifications dans Firestore…');
         await updateDoc(doc(db, "projectCards", id), update);
       } catch (error) {
         if (uploaded) await removeStoredImage(uploaded.storagePath);
         throw error;
       }
-      if (file) await removeStoredImage(card.storagePath);
+      logOperation('Modifications confirmées par Firestore.');
+      const cleaned = file ? await removeStoredImage(card.storagePath) : true;
       event.target.disabled = false;
       setSync("Carte enregistrée");
+      finishOperation(cleaned ? 'Carte enregistrée.' : 'Carte enregistrée ; ancienne photo à vérifier dans Cloudinary.', cleaned ? 'success' : 'warning');
     }
   } catch (error) {
     console.error(error);
     setSync(error.message || "Modification impossible");
+    finishOperation(operationError(error), 'error');
     if (event.target) event.target.disabled = false;
   }
 });

@@ -2,7 +2,13 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <meta content="width=device-width,initial-scale=1" name="viewport">
+  <meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport">
+  <meta name="theme-color" content="#edf4fb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="VALB Admin">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/admin-icon-180.png">
+  <link rel="manifest" href="admin.webmanifest">
   <meta content="noindex,nofollow" name="robots">
   <title>Administration — VALB-THERM</title>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -10,6 +16,7 @@
   <link href="assets/favicon.svg" rel="icon" type="image/svg+xml">
   <link href="glass.css" rel="stylesheet">
   <link href="admin-operations.css" rel="stylesheet">
+  <link href="admin-mobile.css" rel="stylesheet">
 </head>
 <body class="admin-body">
   <main class="admin-login" id="auth-gate">
@@ -23,19 +30,20 @@
       <button class="btn btn-dark" type="submit">Se connecter</button>
       <p aria-live="polite" class="form-status" id="login-status"></p>
       <a class="text-link" href="index.html">Retour au site</a>
+      <details class="install-help"><summary>Installer sur mon iPhone</summary><p>Dans Safari, ouvrez Partager, puis « Sur l’écran d’accueil ». Gardez « Ouvrir comme app web » activé si cette option apparaît, puis touchez Ajouter.</p></details>
     </form>
   </main>
 
   <div class="admin-shell" hidden id="admin-app">
     <aside class="admin-sidebar">
       <a class="brand" href="index.html"><img alt="VALB-THERM Sàrl" class="admin-brand-logo" src="assets/logo-horizontal-transparent.png"></a>
-      <div class="admin-nav">
+      <nav class="admin-nav" aria-label="Navigation de l’administration">
         <span>ESPACE DE TRAVAIL</span>
         <a class="active" href="#overview"><svg aria-hidden="true" class="ui-icon" viewBox="0 0 24 24"><use href="assets/icons.svg#grid"></use></svg> Vue d’ensemble</a>
         <a href="#requests"><svg aria-hidden="true" class="ui-icon" viewBox="0 0 24 24"><use href="assets/icons.svg#document"></use></svg> Demandes</a>
         <a href="#appointments"><svg aria-hidden="true" class="ui-icon" viewBox="0 0 24 24"><use href="assets/icons.svg#calendar"></use></svg> Rendez-vous</a>
         <a href="#content"><svg aria-hidden="true" class="ui-icon" viewBox="0 0 24 24"><use href="assets/icons.svg#add"></use></svg> Photos & cartes</a>
-      </div>
+      </nav>
       <div class="firebase-badge">FIREBASE ACTIF<small id="sync-status">Connexion…</small></div>
       <a class="back-site" href="index.html"><svg aria-hidden="true" class="ui-icon" viewBox="0 0 24 24"><use href="assets/icons.svg#previous"></use></svg> Retour au site</a>
     </aside>
@@ -91,6 +99,7 @@
           <div><b>Compte connecté</b><p id="current-user"></p></div>
           <div><b>Données</b><p>Demandes et contenu sont synchronisés avec Cloud Firestore.</p></div>
           <div><b>Images</b><p>Les photos sont stockées dans Cloudinary. Import jusqu’à 5 Mo, avec optimisation des fichiers volumineux.</p></div>
+          <div class="install-help"><b>Sur votre écran d’accueil</b><p>Ouvrez cette page dans Safari, puis Partager → Sur l’écran d’accueil → Ajouter. Le raccourci « VALB Admin » ouvrira directement votre administration.</p></div>
         </div>
       </section>
     </main>
@@ -110,5 +119,6 @@
     </form>
   </dialog>
   <script src="admin.js" type="module"></script>
+  <script src="admin-mobile.js" defer></script>
 </body>
 </html>

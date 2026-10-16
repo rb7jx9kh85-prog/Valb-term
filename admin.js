@@ -18,13 +18,7 @@ import {
   updateDoc,
   writeBatch
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
-import {
-  deleteObject,
-  getDownloadURL,
-  ref,
-  uploadBytes
-} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-storage.js";
-import { auth, db, storage, firebaseConfigured } from "./firebase-client.js";
+import { auth, db, firebaseConfigured } from "./firebase-client.js";
 
 const statuses = ["Nouveau", "En cours", "Rendez-vous", "Terminé"];
 const loginView = document.querySelector("#auth-gate");
@@ -76,20 +70,52 @@ function validateImage(file) {
   if (!["image/jpeg","image/png","image/webp"].includes(file.type)) throw new Error("Utilisez une image JPG, PNG ou WebP.");
   if (file.size > 5 * 1024 * 1024) throw new Error("L’image dépasse la limite de 5 Mo.");
 }
-function imagePath(file) {
-  const extension = (file.name.split(".").pop() || "jpg").toLowerCase().replace(/[^a-z0-9]/g, "");
-  return "project-cards/" + crypto.randomUUID() + "." + extension;
+async function imageRequest(method, body) {
+  if (!auth.currentUser) throw new Error("Reconnectez-vous à l’administration.");
+  const token = await auth.currentUser.getIdToken();
+  const response = await fetch("/api/images", {
+    method:method, headers:{"Content-Type":"application/json",Authorization:"Bearer " + token},
+    body:JSON.stringify(body)
+  });
+  const result = await response.json().catch(function () { return {}; });
+  if (!response.ok) throw new Error(result.error || "Opération photo impossible. Réessayez.");
+  return result;
+}
+async function prepareImage(file) {
+  if (file.size <= 3 * 1024 * 1024) return file;
+  const url = URL.createObjectURL(file);
+  try {
+    const image = new Image();
+    image.src = url;
+    await image.decode();
+    const canvas = document.createElement("canvas");
+    const ratio = Math.min(1, 2000 / Math.max(image.naturalWidth, image.naturalHeight));
+    canvas.width = Math.max(1, Math.round(image.naturalWidth * ratio));
+    canvas.height = Math.max(1, Math.round(image.naturalHeight * ratio));
+    canvas.getContext("2d").drawImage(image, 0, 0, canvas.width, canvas.height);
+    const optimized = await new Promise(function (resolve) { canvas.toBlob(resolve, "image/webp", 0.82); });
+    if (!optimized || optimized.size > 3 * 1024 * 1024) throw new Error("Réduisez la taille de cette photo puis réessayez.");
+    return optimized;
+  } finally { URL.revokeObjectURL(url); }
 }
 async function uploadImage(file) {
   validateImage(file);
-  const path = imagePath(file);
-  const imageReference = ref(storage, path);
-  await uploadBytes(imageReference, file, {contentType:file.type});
-  return {imageUrl:await getDownloadURL(imageReference),storagePath:path};
+  const prepared = await prepareImage(file);
+  const base64 = await new Promise(function (resolve, reject) {
+    const reader = new FileReader();
+    reader.onload = function () { resolve(String(reader.result).split(",")[1]); };
+    reader.onerror = function () { reject(new Error("Lecture de la photo impossible.")); };
+    reader.readAsDataURL(prepared);
+  });
+  return imageRequest("POST", {image:base64});
 }
 async function removeStoredImage(path) {
   if (!path) return;
-  try { await deleteObject(ref(storage, path)); } catch (error) { console.warn("Image déjà absente", error); }
+  try { await imageRequest("DELETE", {storagePath:path}); }
+  catch (error) {
+    console.warn("Nettoyage de la photo impossible", error.message);
+    setSync("Carte enregistrée, mais l’ancienne photo doit être supprimée dans Cloudinary.");
+  }
 }
 
 function renderRequests() {

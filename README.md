@@ -8,9 +8,11 @@ Le formulaire public enregistre les demandes dans la collection Firestore `reque
 
 ## Admin Firebase
 
-`admin.html` utilise Firebase Authentication, Cloud Firestore et Cloud Storage. Un utilisateur connecté n’accède au tableau de bord que si le document `admins/{uid}` existe avec le champ booléen `active: true`. L’admin gère les demandes, les statuts, les rendez-vous et les cartes illustrées affichées sur le site.
+`admin.html` utilise Firebase Authentication et Cloud Firestore. Les photos sont hébergées par Cloudinary via la fonction Vercel `api/images.js`. Un utilisateur connecté n’accède au tableau de bord que si le document `admins/{uid}` existe avec le champ booléen `active: true`. L’admin gère les demandes, les statuts, les rendez-vous et les cartes illustrées affichées sur le site.
 
-Avant la mise en production, activer Email/Password dans Firebase Authentication, créer la base Firestore, créer le premier document administrateur, activer Storage, ajouter les domaines autorisés puis publier `firestore.rules` et `storage.rules`. La configuration du projet est dans `firebase-config.js`; les clés du SDK Web identifient le projet mais la sécurité réelle est assurée par Authentication et les règles.
+Avant la mise en production, activer Email/Password dans Firebase Authentication, créer la base Firestore, créer le premier document administrateur, ajouter les domaines autorisés puis publier `firestore.rules`. La configuration du projet est dans `firebase-config.js`; les clés du SDK Web identifient le projet mais la sécurité réelle est assurée par Authentication et les règles.
+
+Pour les photos, configurer `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY` et `CLOUDINARY_API_SECRET` dans les variables Vercel puis redéployer. Aucun secret Cloudinary n'est envoyé au navigateur. La fonction vérifie le jeton Firebase auprès d'Authentication et le document `admins/{uid}` dans Firestore avant chaque opération. Elle limite les images à 3 Mo après optimisation, vérifie leur signature de fichier et limite les suppressions au dossier `project-cards/`. Les fichiers jusqu'à 5 Mo sont acceptés dans l'interface; au-delà de 3 Mo, ils sont réduits avant envoi. Les règles Firestore existantes restent compatibles; Firebase Storage n'est pas nécessaire.
 
 ## Contenu
 

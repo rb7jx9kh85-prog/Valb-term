@@ -8,7 +8,7 @@ const clean = function (value) { return String(value || "").trim(); };
 function emailFallback(data) {
   const subject = encodeURIComponent("Demande de devis VALB-THERM — " + data.service);
   const body = encodeURIComponent("Nom : " + data.name + "\nTéléphone : " + data.phone + "\nE-mail : " + data.email + "\nDomaine : " + data.service + "\nProjet : " + data.project + "\n\n" + data.message);
-  window.location.href = "mailto:info@valb-therm.ch?subject=" + subject + "&body=" + body;
+  return "mailto:info@valb-therm.ch?subject=" + subject + "&body=" + body;
 }
 
 if (form) form.addEventListener("submit", async function (event) {
@@ -38,8 +38,11 @@ if (form) form.addEventListener("submit", async function (event) {
     status.textContent = "Votre demande a bien été envoyée. Nous vous recontactons rapidement.";
   } catch (error) {
     console.error("Envoi Firebase impossible", error);
-    status.textContent = "La demande va s’ouvrir dans votre application e-mail. Vérifiez puis envoyez le message.";
-    emailFallback(request);
+    status.textContent = "L’envoi n’a pas abouti. Votre message est toujours dans le formulaire. ";
+    const fallback = document.createElement("a");
+    fallback.href = emailFallback(request);
+    fallback.textContent = "Envoyer par e-mail à la place";
+    status.append(fallback);
   } finally {
     if (submit) submit.disabled = false;
   }

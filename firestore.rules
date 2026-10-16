@@ -105,8 +105,8 @@ service cloud.firestore {
     }
 
     match /requests/{requestId} {
-      allow create: if (isAdmin() && validAdminRequestCreate())
-        || (request.auth == null && validPublicRequest());
+      allow create: if validPublicRequest()
+        || (isAdmin() && validAdminRequestCreate());
       allow read, delete: if isAdmin();
       allow update: if isAdmin() && validAdminRequestUpdate();
     }

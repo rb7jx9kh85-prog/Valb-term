@@ -126,3 +126,9 @@ body.gallery-open{overflow:hidden}
 .review-controls{flex-wrap:wrap}.review-navigation,.review-pause{flex-shrink:0}
 .reviews-immersive .review-author>div{min-width:0}.reviews-immersive .review-author h3{overflow-wrap:anywhere}
 @media(max-width:600px){.reviews-intro h1{font-size:clamp(38px,11vw,60px);overflow-wrap:anywhere}}
+
+
+/* Les cartes ajoutées depuis Firebase reprennent exactement le style des cartes existantes. */
+.firebase-expertise-row{animation:firebase-card-in .65s cubic-bezier(.2,.65,.3,1) both}
+@keyframes firebase-card-in{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.firebase-expertise-row{animation:none}}

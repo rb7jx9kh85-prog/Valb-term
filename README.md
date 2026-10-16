@@ -1,14 +1,16 @@
 # VALB-THERM — refonte
 
-Site statique responsive pour VALB-THERM Sàrl, avec une identité rouge chauffage / bleu sanitaire, le slogan « L’art de chauffer », une page `projets.html` et un espace admin **de démonstration**. Ouvrir `index.html` pour la vitrine et `admin.html` pour la démo. Déploiement possible sur Vercel avec le preset **Other** (répertoire racine, aucune commande de build).
+Site responsive pour VALB-THERM Sàrl, avec une identité rouge chauffage / bleu sanitaire, le slogan « L’art de chauffer », une page `projets.html` et un espace d’administration relié à Firebase. Ouvrir `index.html` pour la vitrine et `admin.html` pour l’administration. Déploiement possible sur Vercel avec le preset **Other** (répertoire racine, aucune commande de build).
 
 ## Formulaire
 
-Le formulaire ouvre un e-mail prérempli par défaut. Pour activer Web3Forms, créer `config.js` à la racine contenant `window.VALB_WEB3FORMS_KEY = 'VOTRE_CLE';`, puis insérer `<script src="config.js"></script>` avant `script.js` dans `index.html`. Ne publier le formulaire qu’après avoir testé la réception. La clé publique Web3Forms n’est pas un secret serveur, mais valider les paramètres anti-spam et le domaine dans Web3Forms.
+Le formulaire public enregistre les demandes dans la collection Firestore `requests`. Si Firebase est momentanément indisponible, il ouvre un e-mail prérempli afin que la demande ne soit pas perdue.
 
-## Admin
+## Admin Firebase
 
-`admin.html` présente des exemples fictifs et permet de les modifier dans le stockage local du navigateur. Il n’y a **aucune authentification, base de données, synchronisation, réception des devis ou réservation réelle**. Avant tout usage professionnel, prévoir un backend, un contrôle d’accès, une politique de conservation et un calendrier. Ne pas utiliser la démo pour des données clients réelles.
+`admin.html` utilise Firebase Authentication, Cloud Firestore et Cloud Storage. Un utilisateur connecté n’accède au tableau de bord que si le document `admins/{uid}` existe avec le champ booléen `active: true`. L’admin gère les demandes, les statuts, les rendez-vous et les cartes illustrées affichées sur le site.
+
+Avant la mise en production, activer Email/Password dans Firebase Authentication, créer la base Firestore, créer le premier document administrateur, activer Storage, ajouter les domaines autorisés puis publier `firestore.rules` et `storage.rules`. La configuration du projet est dans `firebase-config.js`; les clés du SDK Web identifient le projet mais la sécurité réelle est assurée par Authentication et les règles.
 
 ## Contenu
 

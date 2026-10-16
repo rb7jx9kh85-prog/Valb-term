@@ -278,6 +278,7 @@
     </div>
    </section>
    <section class="renewable wrap" id="energies-renouvelables">
+    <img alt="" aria-hidden="true" class="renewable-watermark" height="612" loading="lazy" src="assets/eco-globe.jpg" width="612"/>
     <div class="renewable-photo">
      <img alt="Pompe à chaleur extérieure au cœur d’un jardin" height="1163" loading="lazy" src="assets/pompe-a-chaleur.jpg" width="1600"/>
      <span>
@@ -403,7 +404,7 @@
        Trois regards sur notre métier. Choisissez un domaine pour découvrir nos réalisations en grand.
       </p>
      </div>
-     <div class="expertise-rows">
+     <div class="expertise-rows" id="dynamic-project-cards">
       <a class="expertise-row" href="projets.html#sanitaire">
        <span class="expertise-number">
         01
@@ -418,7 +419,7 @@
         <span class="expertise-action">
          Voir les photos
          <span aria-hidden="true">
-          ↗
+          <svg aria-hidden="true" class="ui-icon" focusable="false" viewBox="0 0 24 24"><use href="assets/icons.svg#arrow-external"></use></svg>
          </span>
         </span>
        </div>
@@ -438,7 +439,7 @@
         <span class="expertise-action">
          Voir les photos
          <span aria-hidden="true">
-          ↗
+          <svg aria-hidden="true" class="ui-icon" focusable="false" viewBox="0 0 24 24"><use href="assets/icons.svg#arrow-external"></use></svg>
          </span>
         </span>
        </div>
@@ -458,7 +459,7 @@
         <span class="expertise-action">
          Voir les photos
          <span aria-hidden="true">
-          ↗
+          <svg aria-hidden="true" class="ui-icon" focusable="false" viewBox="0 0 24 24"><use href="assets/icons.svg#arrow-external"></use></svg>
          </span>
         </span>
        </div>
@@ -549,9 +550,19 @@
      </div>
     </div>
    </section>
-   <section aria-labelledby="reviews-title" class="reviews-section wrap" id="avis">
-    <div class="section-index">
-     LA CONFIANCE, ÇA SE CONSTRUIT
+   <section aria-labelledby="reviews-title" class="reviews-section wrap reviews-immersive" id="avis">
+    <div aria-hidden="true" class="review-ambient">
+     <span>
+     </span>
+     <span>
+     </span>
+     <span>
+     </span>
+    </div>
+    <div class="review-kicker">
+     <span aria-hidden="true">
+     </span>
+     VOS EXPÉRIENCES, EN MOTS
     </div>
     <div class="reviews-heading">
      <div>
@@ -569,12 +580,15 @@
      <a class="btn btn-dark" href="avis.html">
       Tous les avis clients
       <span aria-hidden="true">
-       ↗
+       <svg aria-hidden="true" class="ui-icon" focusable="false" viewBox="0 0 24 24"><use href="assets/icons.svg#arrow-external"></use></svg>
       </span>
      </a>
     </div>
     <div class="reviews-grid">
-     <article class="review-card">
+     <article class="review-card" data-review-index="0">
+      <span aria-hidden="true" class="review-quote-mark">
+       “
+      </span>
       <div class="review-author">
        <span aria-hidden="true" class="review-avatar">
         AG
@@ -597,11 +611,14 @@
       <a href="https://www.google.com/maps/contrib/100393752426648596150/reviews?hl=fr" rel="noopener noreferrer" target="_blank">
        Lire l’avis sur Google
        <span aria-hidden="true">
-        ↗
+        <svg aria-hidden="true" class="ui-icon" focusable="false" viewBox="0 0 24 24"><use href="assets/icons.svg#arrow-external"></use></svg>
        </span>
       </a>
      </article>
-     <article class="review-card">
+     <article class="review-card" data-review-index="1">
+      <span aria-hidden="true" class="review-quote-mark">
+       “
+      </span>
       <div class="review-author">
        <span aria-hidden="true" class="review-avatar">
         FI
@@ -624,11 +641,14 @@
       <a href="https://www.google.com/maps/contrib/110717519328822066818/reviews?hl=fr" rel="noopener noreferrer" target="_blank">
        Lire l’avis sur Google
        <span aria-hidden="true">
-        ↗
+        <svg aria-hidden="true" class="ui-icon" focusable="false" viewBox="0 0 24 24"><use href="assets/icons.svg#arrow-external"></use></svg>
        </span>
       </a>
      </article>
-     <article class="review-card">
+     <article class="review-card" data-review-index="2">
+      <span aria-hidden="true" class="review-quote-mark">
+       “
+      </span>
       <div class="review-author">
        <span aria-hidden="true" class="review-avatar">
         KD
@@ -651,11 +671,14 @@
       <a href="https://www.google.com/maps/contrib/113886659045148607341/reviews?hl=fr" rel="noopener noreferrer" target="_blank">
        Lire l’avis sur Google
        <span aria-hidden="true">
-        ↗
+        <svg aria-hidden="true" class="ui-icon" focusable="false" viewBox="0 0 24 24"><use href="assets/icons.svg#arrow-external"></use></svg>
        </span>
       </a>
      </article>
-     <article class="review-card">
+     <article class="review-card" data-review-index="3">
+      <span aria-hidden="true" class="review-quote-mark">
+       “
+      </span>
       <div class="review-author">
        <span aria-hidden="true" class="review-avatar">
         SC
@@ -678,10 +701,21 @@
       <a href="https://www.google.com/maps/contrib/115089892132090656198/reviews?hl=fr" rel="noopener noreferrer" target="_blank">
        Lire l’avis sur Google
        <span aria-hidden="true">
-        ↗
+        <svg aria-hidden="true" class="ui-icon" focusable="false" viewBox="0 0 24 24"><use href="assets/icons.svg#arrow-external"></use></svg>
        </span>
       </a>
      </article>
+    </div>
+    <div aria-hidden="true" class="review-signature">
+     <span>
+      Le conseil.
+     </span>
+     <span>
+      Le geste.
+     </span>
+     <span>
+      La confiance.
+     </span>
     </div>
     <p class="reviews-source">
      Les extraits sont reproduits à partir des témoignages de nos clients. Retrouvez les avis complets sur Google.
@@ -862,7 +896,7 @@
      <a class="btn btn-dark" href="https://www.google.com/maps/search/?api=1&amp;query=VALB-THERM%20Avenue%20de%20Lucens%2032%201510%20Moudon" rel="noopener noreferrer" target="_blank">
       Ouvrir l’itinéraire
       <span aria-hidden="true">
-       ↗
+       <svg aria-hidden="true" class="ui-icon" focusable="false" viewBox="0 0 24 24"><use href="assets/icons.svg#arrow-external"></use></svg>
       </span>
      </a>
     </div>
@@ -929,7 +963,7 @@
     <a href="mailto:info@valb-therm.ch?subject=Formation%20chez%20VALB-THERM">
      Parlons de votre avenir
      <span aria-hidden="true">
-      ↗
+      <svg aria-hidden="true" class="ui-icon" focusable="false" viewBox="0 0 24 24"><use href="assets/icons.svg#arrow-external"></use></svg>
      </span>
     </a>
    </div>
@@ -945,7 +979,7 @@
      Protection des données
     </a>
     <a href="admin.html">
-     Espace admin — démo
+     Espace admin
     </a>
     <a href="#top">
      Retour en haut
@@ -956,7 +990,8 @@
     </a>
    </div>
   </footer>
-  <script src="script.js">
-  </script>
+  <script src="script.js"></script>
+  <script src="lead-form.js" type="module"></script>
+  <script src="public-project-cards.js" type="module"></script>
  </body>
 </html>

@@ -1,0 +1,21 @@
+{
+  "auth": {
+    "authorizedDomains": [
+      "localhost",
+      "valb-therm.vercel.app",
+      "valbtherm.ch",
+      "www.valbtherm.ch"
+    ],
+    "providers": {
+      "emailPassword": true
+    }
+  },
+  "firestore": {
+    "database": "(default)",
+    "location": "europe-west6",
+    "rules": "firestore.rules"
+  },
+  "storage": {
+    "rules": "storage.rules"
+  }
+}

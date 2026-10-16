@@ -8,7 +8,6 @@ function setMenu(open) {
 }
 menu?.addEventListener('click', () => setMenu(!nav.classList.contains('open')));
 const year=document.querySelector('#year');if(year)year.textContent=new Date().getFullYear();
-document.querySelector('#quote-form')?.addEventListener('submit',async e=>{e.preventDefault();const form=e.currentTarget,status=document.querySelector('#form-status');const data=Object.fromEntries(new FormData(form));const key=window.VALB_WEB3FORMS_KEY||'';if(key){status.textContent='Envoi en cours…';try{const r=await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...data,access_key:key,subject:'Nouvelle demande de devis — VALB-THERM',from_name:'Site VALB-THERM'})});const result=await r.json();if(!result.success)throw new Error('Échec de l’envoi');status.textContent='Votre demande a bien été envoyée. Merci !';form.reset()}catch{status.textContent='Envoi impossible. Appelez-nous au +41 79 697 49 66 ou écrivez à info@valb-therm.ch.'}}else{const subject=encodeURIComponent('Demande de devis VALB-THERM — '+data.service);const body=encodeURIComponent(`Nom : ${data.name}\nTéléphone : ${data.phone}\nE-mail : ${data.email}\nDomaine : ${data.service}\nProjet : ${data.project}\n\n${data.message}`);window.location.href=`mailto:info@valb-therm.ch?subject=${subject}&body=${body}`;status.textContent='Votre application e-mail va s’ouvrir avec votre demande préremplie. Vérifiez et envoyez le message.'}});
 const gallery = document.querySelector('#gallery-dialog');
 if (gallery) {
   const allCards = [...document.querySelectorAll('.work-card')];
@@ -49,7 +48,6 @@ if (gallery) {
   gallery.addEventListener('close', () => {photoAnimation?.cancel();document.body.classList.remove('gallery-open');});
   reduced.addEventListener('change', () => {if (reduced.matches) photoAnimation?.cancel();});
 }
-
 // Progressive enhancement: content remains available without animation support.
 const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const targets = [...document.querySelectorAll('.intro-main,.about-visual,.section-heading,.service-card,.partners h2,.statement blockquote,.work-heading,.work-card,.approach-layout,.contact-intro,.quote-form,.story-heading,.story-layout,.project-end,.principles>div,.project-steps li,.expertise-row,.renewable-photo,.renewable-copy')];

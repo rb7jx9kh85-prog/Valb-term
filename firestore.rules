@@ -30,9 +30,9 @@ service cloud.firestore {
         && request.resource.data.phone.size() <= 40
         && validEmail(request.resource.data.email)
         && (request.resource.data.phone.size() > 0 || request.resource.data.email.size() > 0)
-        && request.resource.data.service is string
-        && request.resource.data.service.size() >= 2
-        && request.resource.data.service.size() <= 100
+        && request.resource.data['service'] is string
+        && request.resource.data['service'].size() >= 2
+        && request.resource.data['service'].size() <= 100
         && request.resource.data.project is string
         && request.resource.data.project.size() >= 2
         && request.resource.data.project.size() <= 100

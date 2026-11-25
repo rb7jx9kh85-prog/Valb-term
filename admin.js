@@ -21,7 +21,7 @@ import {
 import { auth, db, firebaseConfigured } from "./firebase-client.js";
 
 const statuses = ["Nouveau", "En cours", "Rendez-vous", "Terminé"];
-const googleBusinessProfile = "https://share.google/vCTLSV5AP8ifsJtGF";
+const googleReviewUrl = "https://search.google.com/local/writereview?placeid=ChIJv0f9Mopgjo8Rr8z63q2bouk";
 const loginView = document.querySelector("#auth-gate");
 const appView = document.querySelector("#admin-app");
 const loginForm = document.querySelector("#login-form");
@@ -203,9 +203,10 @@ function reviewRequestLink(email) {
   const subject = encodeURIComponent("Votre avis sur Valb-Therm");
   const body = encodeURIComponent(
     "Bonjour,\n\nMerci de nous avoir confié votre chantier. Si vous souhaitez partager votre expérience, vous pouvez laisser un avis sur notre fiche Google : " +
-    googleBusinessProfile + "\n\nMerci pour votre retour,\nL’équipe Valb-Therm"
+    googleReviewUrl + "\n\nMerci pour votre retour,\nL’équipe Valb-Therm"
   );
-  return "mailto:" + encodeURIComponent(email) + "?subject=" + subject + "&body=" + body;
+  const recipient = encodeURIComponent(email).replace("%40", "@");
+  return "mailto:" + recipient + "?subject=" + subject + "&body=" + body;
 }
 
 function renderRequests() {

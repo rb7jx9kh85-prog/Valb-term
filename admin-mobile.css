@@ -10,7 +10,7 @@
 .admin-body .install-help{font-size:13px;line-height:1.65;color:#496174}
 .admin-body .install-help summary{min-height:44px;display:flex;align-items:center;cursor:pointer;font-weight:700;color:#1e5478}
 .admin-body .install-help p{margin:8px 0}
-.admin-body .request-message{color:#405d6f;line-height:1.6;margin-top:10px}
+.admin-body .request-message{color:#405d6f;line-height:1.6;margin-top:10px;white-space:pre-wrap;overflow-wrap:anywhere}
 .admin-body .admin-actions button,.admin-body .card-actions button{min-height:44px}
 .admin-body .status-terminé{background:#e4eee9;color:#37654e}
 .admin-body .operation-journal{box-shadow:0 10px 25px #16304414,inset 0 1px 0 #ffffff25}

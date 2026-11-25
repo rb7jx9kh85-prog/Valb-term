@@ -15,13 +15,21 @@ if (form) form.addEventListener("submit", async function (event) {
   event.preventDefault();
   if (!form.reportValidity()) return;
   const raw = Object.fromEntries(new FormData(form));
+  const siteAddress = clean(raw.siteAddress).slice(0, 240);
+  const message = clean(raw.message);
+  // Keep the address with the request in the existing Firestore message field.
+  const addressLine = siteAddress ? "Adresse du chantier : " + siteAddress + "\n\n" : "";
+  if (addressLine.length + message.length > 3000) {
+    status.textContent = "Raccourcissez la description du projet à " + (3000 - addressLine.length) + " caractères pour envoyer la demande avec l’adresse du chantier.";
+    return;
+  }
   const request = {
     name: clean(raw.name).slice(0, 120),
     phone: clean(raw.phone).slice(0, 40),
     email: clean(raw.email).slice(0, 160).toLowerCase(),
     service: clean(raw.service).slice(0, 100),
     project: clean(raw.project).slice(0, 100),
-    message: clean(raw.message).slice(0, 3000),
+    message: addressLine + message,
     status: "Nouveau",
     meeting: null,
     source: "site-web",

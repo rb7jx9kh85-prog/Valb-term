@@ -21,6 +21,7 @@ import {
 import { auth, db, firebaseConfigured } from "./firebase-client.js";
 
 const statuses = ["Nouveau", "En cours", "Rendez-vous", "Terminé"];
+const googleBusinessProfile = "https://share.google/vCTLSV5AP8ifsJtGF";
 const loginView = document.querySelector("#auth-gate");
 const appView = document.querySelector("#admin-app");
 const loginForm = document.querySelector("#login-form");
@@ -198,12 +199,24 @@ async function removeStoredImage(path) {
   }
 }
 
+function reviewRequestLink(email) {
+  const subject = encodeURIComponent("Votre avis sur Valb-Therm");
+  const body = encodeURIComponent(
+    "Bonjour,\n\nMerci de nous avoir confié votre chantier. Si vous souhaitez partager votre expérience, vous pouvez laisser un avis sur notre fiche Google : " +
+    googleBusinessProfile + "\n\nMerci pour votre retour,\nL’équipe Valb-Therm"
+  );
+  return "mailto:" + encodeURIComponent(email) + "?subject=" + subject + "&body=" + body;
+}
+
 function renderRequests() {
   const selected = filter.value;
   const shown = selected === "all" ? requests : requests.filter(function (item) { return item.status === selected; });
   requestsBody.innerHTML = shown.length ? shown.map(function (item) {
     const options = statuses.map(function (status) { return '<option ' + (status === item.status ? "selected" : "") + ">" + status + "</option>"; }).join("");
-    return '<tr><td><strong>' + safe(item.name) + '</strong><small><a href="tel:' + safe(item.phone) + '">' + safe(item.phone || "Sans téléphone") + '</a></small><small><a href="mailto:' + safe(item.email) + '">' + safe(item.email || "Sans e-mail") + '</a></small></td><td><strong>' + safe(item.service || item.project) + '</strong><small>' + safe(item.project) + '</small>' + (item.message ? '<small class="request-message">' + safe(item.message) + '</small>' : "") + '</td><td>' + formatDate(item.createdAt) + '</td><td><span class="status status-' + safe((item.status || "Nouveau").toLowerCase().replaceAll(" ", "-")) + '">' + safe(item.status || "Nouveau") + '</span></td><td class="admin-actions"><select aria-label="Statut de ' + safe(item.name) + '" data-status-id="' + item.id + '">' + options + '</select><input aria-label="Rendez-vous de ' + safe(item.name) + '" data-meeting-id="' + item.id + '" type="datetime-local" value="' + inputDate(item.meeting) + '"><button class="delete-request" data-delete-id="' + item.id + '" type="button">Supprimer</button></td></tr>';
+    const reviewLink = item.status === "Terminé" && item.email
+      ? '<small><a href="' + safe(reviewRequestLink(item.email)) + '">Demander un avis Google</a></small>'
+      : "";
+    return '<tr><td><strong>' + safe(item.name) + '</strong><small><a href="tel:' + safe(item.phone) + '">' + safe(item.phone || "Sans téléphone") + '</a></small><small><a href="mailto:' + safe(item.email) + '">' + safe(item.email || "Sans e-mail") + '</a></small>' + reviewLink + '</td><td><strong>' + safe(item.service || item.project) + '</strong><small>' + safe(item.project) + '</small>' + (item.message ? '<small class="request-message">' + safe(item.message) + '</small>' : "") + '</td><td>' + formatDate(item.createdAt) + '</td><td><span class="status status-' + safe((item.status || "Nouveau").toLowerCase().replaceAll(" ", "-")) + '">' + safe(item.status || "Nouveau") + '</span></td><td class="admin-actions"><select aria-label="Statut de ' + safe(item.name) + '" data-status-id="' + item.id + '">' + options + '</select><input aria-label="Rendez-vous de ' + safe(item.name) + '" data-meeting-id="' + item.id + '" type="datetime-local" value="' + inputDate(item.meeting) + '"><button class="delete-request" data-delete-id="' + item.id + '" type="button">Supprimer</button></td></tr>';
   }).join("") : '<tr><td colspan="5">Aucune demande pour ce statut.</td></tr>';
   document.querySelector("#count-all").textContent = requests.length;
   document.querySelector("#count-new").textContent = requests.filter(function (item) { return item.status === "Nouveau"; }).length;

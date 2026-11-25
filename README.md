@@ -4,7 +4,7 @@ Site responsive pour VALB-THERM Sàrl, avec une identité rouge chauffage / bleu
 
 ## Formulaire
 
-Le formulaire public enregistre les demandes dans la collection Firestore `requests`. Si Firebase est momentanément indisponible, il ouvre un e-mail prérempli afin que la demande ne soit pas perdue.
+Le formulaire public enregistre les demandes dans la collection Firestore `requests`. L’adresse du chantier, si renseignée, figure au début du message visible dans l’administration. Si l’enregistrement échoue, le formulaire propose un e-mail prérempli contenant les mêmes informations.
 
 ## Admin Firebase
 
@@ -36,7 +36,7 @@ Logo horizontal officiel dans la navigation, symbole en traits en arrière-plan,
 
 La page `projets.html` organise les onze photos existantes en trois galeries : sanitaire, chauffage et lavabos / salles de bains. Les liens de la page d’accueil pointent directement vers chaque domaine et la visionneuse reste dans le domaine choisi.
 
-Les quatre témoignages fournis sont affichés comme extraits statiques, sans note globale ni date relative inventée. Ils sont présents sur l’accueil et sur `avis.html`, avec liens vers les profils Google et la fiche de l’entreprise. Ils ne sont pas synchronisés automatiquement avec Google. Google Maps est intégré à l’adresse de l’entreprise sur ces deux pages.
+Les quatre témoignages fournis sont affichés sur l’accueil et sur `avis.html`. La fiche Google donne accès aux avis complets, à la note et au nombre total. Pour une demande au statut « Terminé » avec une adresse e-mail, le lien « Demander un avis Google » ouvre un message prérempli dans la messagerie de l’administrateur. Google Maps est intégré à l’adresse de l’entreprise sur les deux pages.
 
 La mention entreprise formatrice est séparée des partenaires et placée en bas de page. Les cinq images reçues sont incluses dans `assets/`. `updates.css` porte les ajustements de cette mise à jour.
 
